@@ -1,1 +1,41 @@
-<p>cuenta-new works!</p>
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="registrarCuenta()">
+    <div >
+    
+        <div class="caja">
+            <label class="textolabel" >ID Cliente</label>
+            <input type="number" formControlName="identificacion" />
+            <label class="textolabelerror" *ngIf="isValidField('identificacion')">{{getFieldError('identificacion')}}</label>
+        </div>
+            
+        <div class="caja">
+            <label class="textolabel" >Saldo inicial</label>
+            <input type="number" formControlName="saldoInicial"/>
+            <label class="textolabelerror" *ngIf="isValidField('saldoInicial')">{{getFieldError('saldoInicial')}}</label>
+        </div>       
+
+        <div class="caja">
+            <div><label class="textolabel">Tipo cuenta</label></div>
+            <select formControlName="tipoCuenta">
+                <option value="corriente">Corriente</option>
+                <option value="ahorros">Ahorros</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('tipoCuenta')">{{getFieldError('tipoCuenta')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Estado</label></div>
+            <select formControlName="estadoCuenta">
+                <option value="true">Activa</option>
+                <option value="false">Inactiva</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('tipoCuenta')">{{getFieldError('estadoCuenta')}}</label>
+        </div>
+                <div class="caja">
+                    <button type="submit" class="btn">Registrar</button>
+                </div>
+            
+
+        </div>
+    </form>
+</div>

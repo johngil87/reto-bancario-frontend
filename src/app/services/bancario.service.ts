@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { Cliente } from '../models/cliente';
 import { ErrorMessage } from '../models/error';
 import { Cuenta } from '../models/cuenta';
 import { Movimiento } from '../models/movimiento';
+import { MessageToken } from '../models/token';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,25 @@ export class BancarioService {
 
   constructor(private http: HttpClient) { }   
 
+  getToken():Observable<MessageToken | null >{
+    return this.http.get<MessageToken>(`${this.baseUrl}/jwt`)
+    .pipe(
+      catchError(err => of(err))
+    )
+  }
   getAllClients():Observable<Cliente[] | null >{
     return this.http.get<Cliente[]>(`${this.baseUrl}/cliente`)
+    .pipe(
+      catchError(err => of(err))
+    )
+  }
+
+  createCliente(cliente : Cliente):Observable<Cliente | null >{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    return this.http.post<Cliente>(`${this.baseUrl}/cliente`,cliente,{headers: headers})
     .pipe(
       catchError(err => of(err))
     )
@@ -29,6 +47,17 @@ export class BancarioService {
     )
   }
 
+  createAcount(cuenta: Cuenta):Observable<Cuenta | null>{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    return this.http.post<Cuenta>(`${this.baseUrl}/cuenta`,cuenta,{headers: headers})
+    .pipe(
+      catchError(err => of(err))
+    )
+  }
+
   getAllMoved():Observable<Movimiento[] | null>{
     return this.http.get<Cuenta[]>(`${this.baseUrl}/movimientos`)
     .pipe(
@@ -36,7 +65,18 @@ export class BancarioService {
     )
   }
 
-  getClientById(id: string):Observable<Cliente | ErrorMessage >{
+  createMoved(moved: Movimiento):Observable<Movimiento | null>{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    return this.http.post<Movimiento>(`${this.baseUrl}/movimientos`,moved,{headers: headers})
+    .pipe(
+      catchError(err => of(err))
+    )
+  }
+
+  getClientById(id: number):Observable<Cliente | null >{
     return this.http.get<Cliente>(`${this.baseUrl}/cliente/id?id=${id}`)
     .pipe(
       catchError(err => of(err))
@@ -77,4 +117,10 @@ export class BancarioService {
     )
   }
 
+  tokenLocalStorage(): string{
+    if(localStorage.getItem('token')){
+      return localStorage.getItem('token')!
+    }
+    return '';
+  }
 }

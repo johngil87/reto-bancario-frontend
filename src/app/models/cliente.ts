@@ -7,4 +7,5 @@ export interface Cliente {
     telefono:       string;
     contrasena:     string;
     estado:         boolean;
+    idCliente:      number;
 }

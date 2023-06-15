@@ -1,1 +1,62 @@
-<p>cliente-new works!</p>
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="registrarCliente()">
+    <div >
+        <div class="caja">
+            <label class="textolabel" for="nombre">Nombre</label>
+            <input type="text" formControlName="nombre" placeholder="Escribe tu nombre"/>
+            <label class="textolabelerror" *ngIf="isValidField('nombre')">{{getFieldError('nombre')}}</label>
+        </div>
+    
+        <div class="caja">
+            <label class="textolabel" >Identificacion</label>
+            <input type="number" formControlName="identificacion" />
+            <label class="textolabelerror" *ngIf="isValidField('identificacion')">{{getFieldError('identificacion')}}</label>
+        </div>
+            
+        <div class="caja">
+            <label class="textolabel" >Direccion</label>
+            <input type="text" formControlName="direccion"/>
+            <label class="textolabelerror" *ngIf="isValidField('direccion')">{{getFieldError('direccion')}}</label>
+        </div>
+            
+        <div class="caja">
+            <label class="textolabel">Edad</label>
+            <input type="number" formControlName="edad">
+            <label class="textolabelerror" *ngIf="isValidField('edad')">{{getFieldError('edad')}}</label>
+        </div>
+
+        <div class="caja">
+            <label class="textolabel">Telefono</label>
+            <input type="number" formControlName="telefono">
+            <label class="textolabelerror" *ngIf="isValidField('telefono')">{{getFieldError('telefono')}}</label>
+        </div>
+
+        <div class="caja">
+            <label class="textolabel">Contraseña</label>
+            <input type="password" formControlName="contrasena">
+            <label class="textolabelerror" *ngIf="isValidField('contrasena')">{{getFieldError('contrasena')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Estado</label></div>
+            <select formControlName="estado">
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('estado')">{{getFieldError('estado')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Genero</label></div>            
+            <div><input type="radio" formControlName="genero" value="M"><label class="textolabel">Masculino</label></div>
+            <div><input type="radio" formControlName="genero" value="F"><label class="textolabel">Fenemino</label></div>
+            <label class="textolabelerror" *ngIf="isValidField('genero')">{{getFieldError('genero')}}</label>
+        </div>
+                <div class="caja">
+                    <button type="submit" class="btn">Registrar</button>
+                </div>
+            
+
+        </div>
+    </form>
+</div>
