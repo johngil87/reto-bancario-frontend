@@ -12,6 +12,7 @@ export class MovimientoListComponent implements OnInit{
   movimientos : Movimiento[] = [];
   filteredData: Movimiento[] = [];
 
+  
   constructor(private service: BancarioService){}
 
   ngOnInit(): void {

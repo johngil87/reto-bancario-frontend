@@ -1,0 +1,57 @@
+#main-header {
+	background: #333;
+	color: white;
+	height: 50px;
+}	
+	#main-header a {
+		color: white;
+	}
+
+/*
+ * Logo
+ */
+#logo-header {
+	float: left;
+	padding: 10px 0 0 20px;
+	text-decoration: none;
+}
+	#logo-header:hover {
+		color: #0b76a6;
+	}
+	
+	#logo-header .site-name {
+		display: block;
+		font-weight: 700;
+		font-size: 1.2em;
+	}
+	
+	#logo-header .site-desc {
+		display: block;
+		font-weight: 300;
+		font-size: 0.8em;
+		color: #999;
+	}
+    .btn{
+        color: #0099CC;
+        background: transparent;
+        border: 2px solid #0099CC;
+        border-radius: 6px;
+        border: none;
+          color: white;
+          padding: 10px 15px;
+          text-align: center;
+          display: inline-block;
+          font-size: 10px;
+          margin: 4px 4px;
+          -webkit-transition-duration: 0.4s; /* Safari */
+          transition-duration: 0.4s;
+          cursor: pointer;
+          text-decoration: none;
+          text-transform: uppercase;
+    }
+    
+    .btn{
+            background-color: white; 
+            color: black; 
+            border: 2px solid #008CBA;
+    }

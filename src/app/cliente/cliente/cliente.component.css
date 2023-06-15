@@ -1,0 +1,29 @@
+input {
+    border: none;
+    font-size: 16px;
+    height: auto;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 200px;
+    background-color: #f6f9fc;
+    color: #64696d;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 30px;
+  }
+  
+  input[type="email"] {
+    background-color: #a1aaf5;
+  }
+ 
+  input[type="text"] {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+.textolabel{
+    color: #64696d;
+    font-size: 16px;
+}
+.caja{
+    width: 400px;
+}  
