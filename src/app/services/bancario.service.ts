@@ -15,22 +15,22 @@ export class BancarioService {
 
   constructor(private http: HttpClient) { }   
 
-  getAllClients():Observable<Cliente[] | ErrorMessage >{
+  getAllClients():Observable<Cliente[] | null >{
     return this.http.get<Cliente[]>(`${this.baseUrl}/cliente`)
     .pipe(
       catchError(err => of(err))
     )
   }
 
-  getAllAcount():Observable<Cuenta[] | ErrorMessage>{
+  getAllAcount():Observable<Cuenta[] | null>{
     return this.http.get<Cuenta[]>(`${this.baseUrl}/cuenta`)
     .pipe(
       catchError(err => of(err))
     )
   }
 
-  getAllMoved():Observable<Movimiento[] | ErrorMessage>{
-    return this.http.get<Cuenta[]>(`${this.baseUrl}/movimiento`)
+  getAllMoved():Observable<Movimiento[] | null>{
+    return this.http.get<Cuenta[]>(`${this.baseUrl}/movimientos`)
     .pipe(
       catchError(err => of(err))
     )
