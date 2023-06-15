@@ -5,6 +5,7 @@ import { MovimientoRoutingModule } from './movimiento-routing.module';
 import { MovimientoListComponent } from './movimiento-list/movimiento-list.component';
 import { MovimientoComponent } from './movimiento/movimiento.component';
 import { MovimientoNewComponent } from './movimiento-new/movimiento-new.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MovimientoNewComponent } from './movimiento-new/movimiento-new.componen
   ],
   imports: [
     CommonModule,
-    MovimientoRoutingModule
+    MovimientoRoutingModule,
+    SharedModule
   ]
 })
 export class MovimientoModule { }
