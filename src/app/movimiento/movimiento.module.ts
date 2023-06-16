@@ -6,13 +6,15 @@ import { MovimientoListComponent } from './movimiento-list/movimiento-list.compo
 import { MovimientoComponent } from './movimiento/movimiento.component';
 import { MovimientoNewComponent } from './movimiento-new/movimiento-new.component';
 import { SharedModule } from '../shared/shared.module';
+import { MovimientoClienteComponent } from './movimiento-cliente/movimiento-cliente.component';
 
 
 @NgModule({
   declarations: [
     MovimientoListComponent,
     MovimientoComponent,
-    MovimientoNewComponent
+    MovimientoNewComponent,
+    MovimientoClienteComponent
   ],
   imports: [
     CommonModule,

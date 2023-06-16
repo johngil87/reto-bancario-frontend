@@ -1,0 +1,98 @@
+table {
+    width: 100%;
+    border: 1px solid #000;
+ }
+ th, td {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    padding: 0.3em;
+    caption-side: bottom;
+    box-shadow: 10px 6px 5px rgba(0, 0, 0, 0.3);
+ }
+ caption {
+    padding: 0.3em;
+    color: #fff;
+     background: #000;
+ }
+ th {
+    background: #eee;
+ }
+
+ 
+.caja{
+   width: 190px;
+   height: 70px;
+   float: left;
+   padding: 10px;
+}
+
+.container{
+   margin: 40px;
+   width: 500px;
+}
+
+input {
+   border: none;
+   font-size: 14px;
+   height: auto;
+   margin: 5;
+   outline: 0;
+   padding: 10px;
+   background-color: #f6f9fc;
+   color: #64696d;
+   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+   margin-right: 10px;
+ }
+
+ input[type="text"] {
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+ }
+ input[type="number"] {
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+ }
+ input[type="password"] {
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+ }
+ input[type="date"] {
+   width: 90%;
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+ }
+
+
+.textolabel{
+   color: #64696d;
+   font-size: 16px;
+}
+
+.textolabelerror{
+   color: #eb1616;
+   font-size: 16px;
+}
+
+.btn{
+   color: #0099CC;
+   background: transparent;
+   border: 2px solid #0099CC;
+   border-radius: 6px;
+   border: none;
+     color: white;
+     padding: 10px 20px;
+     text-align: center;
+     display: inline-block;
+     font-size: 10px;
+     margin: 4px 2px;
+     -webkit-transition-duration: 0.4s; /* Safari */
+     transition-duration: 0.4s;
+     cursor: pointer;
+     text-decoration: none;
+     text-transform: uppercase;
+}
+
+.btn{
+       background-color: white; 
+       color: black; 
+       border: 2px solid #008CBA;
+}

@@ -4,6 +4,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HeaderComponent } from './header/header.component';
 import { InputSearchComponent } from './input-search/input-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -12,16 +14,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     HeaderComponent,
     InputSearchComponent,
+    ModalComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
   ],
   exports:[
     NavbarComponent,
     HeaderComponent,
     FormsModule,
     ReactiveFormsModule,
-    InputSearchComponent
+    InputSearchComponent,
+    ModalComponent,
   ]
 })
 export class SharedModule { }

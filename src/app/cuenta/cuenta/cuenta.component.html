@@ -1,1 +1,65 @@
-<p>cuenta works!</p>
+
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="actualizarCuenta()">
+    <div >            
+        <div class="caja">
+            <label class="textolabel">Saldo Inicial</label>
+            <input type="number" formControlName="saldoInicial">
+            <label class="textolabelerror" *ngIf="isValidField('saldoInicial')">{{getFieldError('saldoInicial')}}</label>
+        </div>
+
+        <div class="caja">
+            <label class="textolabel">Saldo Disponible</label>
+            <input type="number" formControlName="saldoDisponible">
+            <label class="textolabelerror" *ngIf="isValidField('saldoDisponible')">{{getFieldError('saldoDisponible')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Estado</label></div>
+            <select formControlName="tipoCuenta">
+                <option value="corriente">Corriente</option>
+                <option value="ahorros">Ahorros</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('tipoCuenta')">{{getFieldError('tipoCuenta')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Estado</label></div>
+            <select formControlName="estado">
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('estado')">{{getFieldError('estado')}}</label>
+        </div>
+                <div >
+                    <button type="submit" class="btn">Actualizar</button>
+                    
+                    <a [routerLink]="[back]">Volver</a>
+                </div>
+    </div>
+    </form>
+    <button class="btn btn2" (click)="eliminarCuenta()">Eliminar</button>
+</div>
+<table class="table">
+    <thead>
+      <tr>        
+        <th scope="col">Saldo</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Fecha  </th>
+        <th scope="col">Mas</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let item of movimientos ">        
+        <td>{{item.saldo}}</td>
+        <td>{{item.tipo}}</td>
+        <td>{{item.valor}}</td>
+        <td>{{item.fecha  | date}}</td>
+        <td><button  [routerLink]="['/movimientos/move', item.idMovimiento]" >►</button></td>       
+      </tr>
+    
+    </tbody>
+  </table>
+
+  <app-modal [titulo]="tituloModal" [mensaje]="mensajeModal" [isModalVisible]="displayModal" (closedModal)="closePopup($event)"></app-modal>

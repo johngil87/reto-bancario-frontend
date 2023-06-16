@@ -6,7 +6,7 @@
         <th scope="col">Numero Movimiento</th>
         <th scope="col">Tipo</th>
         <th scope="col">Valor</th>
-        <th scope="col">Fecha | date </th>
+        <th scope="col">Fecha  </th>
         <th scope="col">Ver mas</th>
       </tr>
     </thead>
@@ -15,7 +15,7 @@
         <td>{{item.idMovimiento}}</td>
         <td>{{item.tipo}}</td>
         <td>{{item.valor}}</td>
-        <td>{{item.fecha}}</td>
+        <td>{{item.fecha  | date}}</td>
         <td><button  [routerLink]="['/movimientos/move', item.idMovimiento]" >►</button></td>       
       </tr>
     

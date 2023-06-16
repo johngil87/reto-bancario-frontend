@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente';
 import { ErrorMessage } from '../models/error';
 import { Cuenta } from '../models/cuenta';
 import { Movimiento } from '../models/movimiento';
 import { MessageToken } from '../models/token';
+import { MovimientosCliente } from '../models/movimientos-cliente';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,41 @@ export class BancarioService {
     })
     return this.http.post<Cliente>(`${this.baseUrl}/cliente`,cliente,{headers: headers})
     .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  updateClient(cliente : Cliente):Observable<Cliente | null >{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    return this.http.put<Cliente>(`${this.baseUrl}/cliente`,cliente,{headers: headers})
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  deleteCliente(id:number):Observable<Cliente | null >{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    console.log(id);
+    return this.http.delete<Cliente>(`${this.baseUrl}/cliente?id=${id}`,{headers: headers})
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  deleteAcount(id:number):Observable< null >{
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    console.log(id);
+    return this.http.delete<null>(`${this.baseUrl}/cuenta/id?id=${id}`,{headers: headers})
+    .pipe(
       catchError(err => of(err))
     )
   }
@@ -54,7 +90,7 @@ export class BancarioService {
     })
     return this.http.post<Cuenta>(`${this.baseUrl}/cuenta`,cuenta,{headers: headers})
     .pipe(
-      catchError(err => of(err))
+      catchError(this.errorHandler)
     )
   }
 
@@ -72,18 +108,18 @@ export class BancarioService {
     })
     return this.http.post<Movimiento>(`${this.baseUrl}/movimientos`,moved,{headers: headers})
     .pipe(
-      catchError(err => of(err))
+      catchError(this.errorHandler)
     )
   }
 
   getClientById(id: number):Observable<Cliente | null >{
     return this.http.get<Cliente>(`${this.baseUrl}/cliente/id?id=${id}`)
     .pipe(
-      catchError(err => of(err))
+      catchError(this.errorHandler)
     )
   }
 
-  getAcountById(id: string):Observable<Cuenta | ErrorMessage >{
+  getAcountById(id: string):Observable<Cuenta | null >{
     return this.http.get<Cuenta>(`${this.baseUrl}/cuenta/id?id=${id}`)
     .pipe(
       catchError(err => of(err))
@@ -97,14 +133,19 @@ export class BancarioService {
     )
   }
 
-  updateClient(client: Cliente):Observable<Cliente | ErrorMessage >{
-    return this.http.put<Cliente>(`${this.baseUrl}/cliente`, client)
+  getMovedByClient(idCLiente: number, fechaInicial: Date, fecheFinal:Date):Observable<MovimientosCliente[] | null >{
+    return this.http.get<MovimientosCliente[]>(`${this.baseUrl}/movimientos/cliente?id=${idCLiente}&fechaInicial=${fechaInicial}&fechaFinal=${fecheFinal}`)
     .pipe(
-      catchError(err => of(err))
+      catchError(this.errorHandler)
     )
   }
+
   updateAcount(acount: Cuenta):Observable<Cuenta | ErrorMessage >{
-    return this.http.put<Cliente>(`${this.baseUrl}/cuenta`, acount)
+    const token = this.tokenLocalStorage(); 
+    const headers = new HttpHeaders({
+      'my-token':token
+    })
+    return this.http.put<Cliente>(`${this.baseUrl}/cuenta`, acount, {headers: headers})
     .pipe(
       catchError(err => of(err))
     )
@@ -122,5 +163,9 @@ export class BancarioService {
       return localStorage.getItem('token')!
     }
     return '';
+  }
+
+  errorHandler(error: string){
+    return throwError(error)
   }
 }

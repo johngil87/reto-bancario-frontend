@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BancarioService } from '../../services/bancario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-new',
@@ -10,6 +11,9 @@ import { ValidatorService } from 'src/app/validators/validator.service';
 })
 export class ClienteNewComponent {
 
+  tituloModal :string = '';
+  mensajeModal:string = '';
+  displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
     nombre:['', [Validators.required]],
     identificacion:['', [Validators.required]],
@@ -21,7 +25,7 @@ export class ClienteNewComponent {
     estado:[false,[Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService){}
+  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService,private router: Router){}
 
   registrarCliente(){
     if(!this.myForm.valid){
@@ -30,11 +34,19 @@ export class ClienteNewComponent {
       return;
     }
     console.log("registro cliente")
-    this.service.createCliente(this.myForm.value).subscribe(res=>{    
-      console.log(res);
+    this.service.createCliente(this.myForm.value).subscribe(res=>{
+      this.messageModal('', 'operacion exitosa')
+      
+    },error=>{
+      this.messageModal('Error', error.error.message);
     });
   }
 
+  messageModal(title:string, message : string){
+    this.tituloModal =title
+    this.mensajeModal=message
+    this.displayModal=true;
+  }
 
   public isValidField(field: string): boolean | null{
     return this.myForm.controls[field].errors  && this.myForm.controls[field].touched;   
@@ -63,4 +75,8 @@ export class ClienteNewComponent {
     return null;
   }
 
+  closePopup(event:boolean){
+    this.displayModal=event;
+    this.router.navigate(['clientes']);
+  }
 }

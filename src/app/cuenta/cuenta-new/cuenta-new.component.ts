@@ -5,6 +5,7 @@ import { ValidatorService } from 'src/app/validators/validator.service';
 import { Cliente } from '../../models/cliente';
 import { Cuenta } from 'src/app/models/cuenta';
 import { switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cuenta-new',
@@ -15,6 +16,9 @@ export class CuentaNewComponent {
 
   cliente?:Cliente;
   cuenta?: Cuenta;
+  tituloModal :string = '';
+  mensajeModal:string = '';
+  displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
     
     identificacion:[0, [Validators.required]],
@@ -23,7 +27,10 @@ export class CuentaNewComponent {
     estadoCuenta:[false,[Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService){}
+  constructor(private fb: FormBuilder, 
+    private service: BancarioService, 
+    private validatorService: ValidatorService,
+    private router: Router){}
 
   registrarCuenta(){
     if(!this.myForm.valid){
@@ -38,9 +45,22 @@ export class CuentaNewComponent {
           this.cliente = res;
         }          
        return this.service.createAcount(this.setCuenta(this.cliente!))
-      })
-      
-    ).subscribe()
+      },error=>{
+        this.messageModal('Error', 'no existe cliente con ese id');
+      })     
+    ).subscribe(()=> {
+      this.messageModal('', 'operacion exitosa');
+      this.router.navigate(['cuentas']);
+    },
+      error=>{
+      this.messageModal('Error', error.error.message);
+    })
+  }
+
+  messageModal(title:string, message : string){
+    this.tituloModal =title
+    this.mensajeModal=message
+    this.displayModal=true;
   }
 
   setCuenta(res:Cliente):Cuenta{
@@ -59,7 +79,8 @@ export class CuentaNewComponent {
       tipoCuenta: this.myForm.controls['tipoCuenta'].value,
       saldoInicial: this.myForm.controls['saldoInicial'].value,
       estado: this.myForm.controls['estadoCuenta'].value,
-      movimientos: []
+      movimientos: [],
+      saldoDisponible: null
     }
   }
   public isValidField(field: string): boolean | null{
@@ -87,5 +108,9 @@ export class CuentaNewComponent {
       }
     }
     return null;
+  }
+
+  closePopup(event:boolean){
+    this.displayModal=event;
   }
 }

@@ -1,0 +1,11 @@
+<div class="modal" *ngIf="isModalVisible">
+    <div class="modal-content">
+      <!-- Contenido del modal -->
+      <h2>{{titulo}}</h2>
+      <hr>
+      <p>{{mensaje}}</p>
+      
+      <!-- Botón para cerrar el modal -->
+      <button (click)="closeModal()" class="btn">Cerrar</button>
+    </div>
+  </div>

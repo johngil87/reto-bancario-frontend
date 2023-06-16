@@ -8,4 +8,5 @@ export interface Cuenta {
     estado:       boolean;
     cliente:      Cliente;
     movimientos:  Movimiento[];
+    saldoDisponible: number | null;
 }
