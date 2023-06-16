@@ -18,6 +18,16 @@ export class ValidatorService {
     }
     return null
   }
+
+  public maxCharactersId = (control: FormControl):ValidationErrors | null =>{
+    const value : number = control.value.length;  
+    if(value > 12){
+        return {
+            maxId: true
+        }
+    }
+    return null
+  }
   
   public notCero = (control: FormControl):ValidationErrors | null =>{
     const value : number = control.value;  

@@ -1,3 +1,15 @@
+.contend{
+    float: right;
+    width: 75%;
+}
+
 .navbar{
+    width: 20%;
+    display: block;
+    height: 800px;
     float: left;
+}
+
+.container{
+    margin: auto;
 }

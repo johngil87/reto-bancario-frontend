@@ -1,46 +1,60 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MovimientosCliente } from 'src/app/models/movimientos-cliente';
 import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import  jsPDF from 'jspdf';
+import { ErrorMessage } from '../../models/error';
 
 @Component({
-  selector: 'app-movimiento-new',
-  templateUrl: './movimiento-new.component.html',
-  styleUrls: ['./movimiento-new.component.css']
+  selector: 'app-movimiento-cliente',
+  templateUrl: './movimiento-cliente.component.html',
+  styleUrls: ['./movimiento-cliente.component.css']
 })
-export class MovimientoNewComponent {
-
+export class MovimientoClienteComponent {
+  
   tituloModal :string = '';
   mensajeModal:string = '';
   displayModal: boolean = false;
-  public myForm: FormGroup = this.fb.group({    
-    valor:[0, [Validators.required, this.validatorService.notCero]],
-    idCuenta:[0,[Validators.required]],
-    tipo:['',[Validators.required]]
+  movimientos : MovimientosCliente[] = [];  
+  public myForm: FormGroup = this.fb.group({
+    idCliente:[0, [Validators.required,this.validatorService.notCero]],
+    fechaInicial:['', [Validators.required]],
+    fechaFinal:['', [Validators.required]]
     });
 
   constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService){}
 
-  registrarMovimiento(){
+  ngOnInit(): void {
+    console.log('inicia lista de movimientos')
+    
+  }
+
+  busquedaMovimientos(){
     if(!this.myForm.valid){
-      this.myForm.markAllAsTouched()
-      console.log("NO VALIDO")
+      this.myForm.markAllAsTouched();
       return;
     }
-    this.service.createMoved(this.myForm.value).subscribe(res=>{
-      console.log(res)
-      this.tituloModal ='Exito'
-      this.mensajeModal='operacion realizada con exito'
-      this.displayModal=true;
+    this.service.getMovedByClient(this.myForm.controls['idCliente'].value,
+    new Date(this.myForm.controls['fechaInicial'].value),
+    new Date(this.myForm.controls['fechaFinal'].value)).subscribe(res =>{
+      if(res){
+        this.movimientos = res;
+      }
     },error=>{
       this.tituloModal ='Error'
       this.mensajeModal=error.error.message
       this.displayModal=true;
-    })
-    
+        console.log('error consumo ',error.error.message)
+    });
   }
 
-  
+  imprimirTabla(mov: MovimientosCliente){
+    const doc = new jsPDF();
+    doc.text(JSON.stringify(mov),10,10)
+    doc.save('movimiento')
+  }
+
   public isValidField(field: string): boolean | null{
     return this.myForm.controls[field].errors  && this.myForm.controls[field].touched;   
   }
@@ -67,8 +81,8 @@ export class MovimientoNewComponent {
     }
     return null;
   }
-
   closePopup(event:boolean){
     this.displayModal=event;
   }
+
 }

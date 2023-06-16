@@ -9,18 +9,19 @@ export class ModalComponent implements OnInit {
 
   constructor() { }
 
+  
   @Input() titulo!: string;
   @Input() mensaje!: string;
-  @Input() displayStyle: string = 'none';
+  @Input() isModalVisible:boolean = false;
   @Input() editable: string = '';
-  @Output() closedModal: EventEmitter<string> = new EventEmitter();
+  @Output() closedModal: EventEmitter<boolean> = new EventEmitter();
 
   ngOnInit() {
   }
 
-  closePopup() {
-    this.displayStyle = "none";
-    this.closedModal.emit('none')
+  closeModal() {
+    this.isModalVisible = false;
+    this.closedModal.emit(false)
   }
 
 }

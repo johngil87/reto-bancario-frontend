@@ -83,3 +83,10 @@ select{
         color: black; 
         border: 2px solid #008CBA;
 }
+
+@media (max-width: 400px) {
+  .container{
+    margin: 40px;
+    width: 200px;
+  }
+}

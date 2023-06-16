@@ -16,7 +16,6 @@ export class MovimientoListComponent implements OnInit{
   constructor(private service: BancarioService){}
 
   ngOnInit(): void {
-    console.log('inicia lista de movimientos')
     this.service.getAllMoved().subscribe(res =>{
       if(res){
         this.movimientos = res;
