@@ -7,14 +7,7 @@
 		color: white;
 	}
 
-/*
- * Logo
- */
-#logo-header {
-	float: left;
-	padding: 10px 0 0 20px;
-	text-decoration: none;
-}
+
 	#logo-header:hover {
 		color: #0b76a6;
 	}
@@ -54,4 +47,11 @@
             background-color: white; 
             color: black; 
             border: 2px solid #008CBA;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+      /* Scaling button to 0.98 to its original size */
+      box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.769);
+      /* Lowering the shadow */
     }

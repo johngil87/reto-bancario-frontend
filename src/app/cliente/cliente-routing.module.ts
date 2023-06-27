@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClienteComponent } from './cliente/cliente.component';
 import { ClienteListComponent } from './cliente-list/cliente-list.component';
 import { ClienteNewComponent } from './cliente-new/cliente-new.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,10 +11,12 @@ const routes: Routes = [
     component: ClienteListComponent
   },{
     path:'cliente/:id',
-    component: ClienteComponent
+    component: ClienteComponent,
+    canActivate:[AuthGuard],
   },{
     path:'newcliente',
-    component: ClienteNewComponent
+    component: ClienteNewComponent,
+    canActivate:[AuthGuard],
   },
 ];
 

@@ -7,6 +7,12 @@
             <input type="number" formControlName="identificacion" />
             <label class="textolabelerror" *ngIf="isValidField('identificacion')">{{getFieldError('identificacion')}}</label>
         </div>
+
+        <div class="caja">
+            <label class="textolabel" >No cuenta</label>
+            <input type="number" formControlName="numeroCuenta" />
+            <label class="textolabelerror" *ngIf="isValidField('numeroCuenta')">{{getFieldError('numeroCuenta')}}</label>
+        </div>
             
         <div class="caja">
             <label class="textolabel" >Saldo inicial</label>

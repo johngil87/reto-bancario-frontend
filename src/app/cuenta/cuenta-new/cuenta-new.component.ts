@@ -20,8 +20,8 @@ export class CuentaNewComponent {
   mensajeModal:string = '';
   displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
-    
-    identificacion:[0, [Validators.required]],
+    numeroCuenta:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(60000)]],
+    identificacion:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(999999)]],
     saldoInicial:[0,[Validators.required]],
     tipoCuenta:['',[Validators.required]],
     estadoCuenta:[false,[Validators.required]]
@@ -38,7 +38,7 @@ export class CuentaNewComponent {
       console.log("NO VALIDO")
       return;
     }
-    this.service.getClientById(this.myForm.controls['identificacion'].value)
+    this.service.getClientByIdentification(this.myForm.controls['identificacion'].value)
     .pipe(
       switchMap((res)=>{
         if(res){
@@ -76,6 +76,7 @@ export class CuentaNewComponent {
         estado:res.estado,
         idCliente:res.idCliente
       },
+      numeroCuenta: this.myForm.controls['numeroCuenta'].value,
       tipoCuenta: this.myForm.controls['tipoCuenta'].value,
       saldoInicial: this.myForm.controls['saldoInicial'].value,
       estado: this.myForm.controls['estadoCuenta'].value,
@@ -105,6 +106,12 @@ export class CuentaNewComponent {
 
         case 'menor':
           return 'el cliente no puede ser menor de edad';
+
+        case 'min':          
+          return 'este campo debe tener mas de 5 numeros';
+        
+          case 'max':
+          return 'este campo debe tener maximo de 10 numeros';
       }
     }
     return null;

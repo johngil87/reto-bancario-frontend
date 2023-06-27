@@ -15,13 +15,13 @@ export class ClienteNewComponent {
   mensajeModal:string = '';
   displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
-    nombre:['', [Validators.required]],
-    identificacion:['', [Validators.required]],
-    direccion:['', [Validators.required]],
+    nombre:['', [Validators.required, Validators.pattern(this.validatorService.firstNameAndLastnamePattern)]],
+    identificacion:['', [Validators.required, Validators.max(9999999999), Validators.min(999999)]],
+    direccion:['', [Validators.required,Validators.maxLength(100)]],
     genero:['',[Validators.required]],
-    edad:[0,[Validators.required,this.validatorService.notCero, this.validatorService.menorEdad]],
-    telefono:['',[Validators.required]],
-    contrasena:['',[Validators.required]],
+    edad:[0,[Validators.required,this.validatorService.notCero, this.validatorService.menorEdad, this.validatorService.edadMax]],
+    telefono:['',[Validators.required, Validators.max(9999999999), Validators.min(999999)]],
+    contrasena:['',[Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
     estado:[false,[Validators.required]]
     });
 
@@ -62,14 +62,36 @@ export class ClienteNewComponent {
         case 'required':
           return 'este campo es requerido';
 
-        case 'minLength':
-          return 'este campo requiere un minimo de 10 caracteres';
+        case 'minlength':
+          return 'este campo requiere un minimo de 4 caracteres';
+
+        case 'maxlength':
+            return 'este campo requiere un maximo de 100 caracteres';
 
         case 'cero':
           return 'tiene que ser mayor a cero';
 
         case 'menor':
           return 'el cliente no puede ser menor de edad';
+
+        case 'edadmax':
+          return 'la edad no puede ser superior a 100';
+
+        case 'pattern':
+        return 'solo nombre y apellido y sin numeros';
+
+        case 'min':
+          return 'este campo debe tener mas de 6 numeros';
+
+        case 'max':
+          switch(field){
+            case 'edad':
+              return 'edad no puede ser superior a 100';
+            case 'identificacion':
+              return 'Identificacion no pude contener mas de 10 digitos';
+            case 'telefono':
+              return 'Telefono no pude contener mas de 10 digitos';
+          } 
       }
     }
     return null;

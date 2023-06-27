@@ -1,1 +1,52 @@
-<p>movimiento works!</p>
+
+<div class="container">
+    <form [formGroup]="myForm" >
+    <div >
+        <div class="caja">
+            <label class="textolabel">Id Movimiento</label>
+            <input type="text" formControlName="idMovimiento" placeholder=""/>
+            <label class="textolabelerror" *ngIf="isValidField('idMovimiento')">{{getFieldError('idMovimiento')}}</label>
+        </div>
+
+        <div class="caja">
+            <label class="textolabel">Id Cuenta</label>
+            <input type="text" formControlName="idCuenta" placeholder=""/>
+            <label class="textolabelerror" *ngIf="isValidField('idCuenta')">{{getFieldError('idCuenta')}}</label>
+        </div>
+    
+        <div class="caja">
+            <label class="textolabel" >Fecha</label>
+            <input type="date" formControlName="fecha" />
+            <label class="textolabelerror" *ngIf="isValidField('fecha')">{{getFieldError('fecha')}}</label>
+        </div>
+            
+        <div class="caja">
+            <label class="textolabel">Valor</label>
+            <input type="number" formControlName="valor">
+            <label class="textolabelerror" *ngIf="isValidField('valor')">{{getFieldError('valor')}}</label>
+        </div>
+
+        <div class="caja">
+            <label class="textolabel">Saldo</label>
+            <input type="number" formControlName="saldo">
+            <label class="textolabelerror" *ngIf="isValidField('saldo')">{{getFieldError('saldo')}}</label>
+        </div>
+
+        <div class="caja">
+            <div><label class="textolabel">Tipo</label></div>
+            <select formControlName="tipo">
+                <option value="credito">Credito</option>
+                <option value="debito">Debito</option>
+            </select>
+            <label class="textolabelerror" *ngIf="isValidField('tipo')">{{getFieldError('tipo')}}</label>
+        </div>
+                <div >
+                    <button  class="btn" (click)="actualizarMovimiento()">Actualizar</button>
+                    <button class="btn btn2" (click)="eliminarMovimiento()">Eliminar</button>
+                    <a  routerLink="[/movimientos]">Volver</a>
+                </div>
+    </div>
+    </form>
+</div>
+<app-modal [titulo]="tituloModal" [mensaje]="mensajeModal" [isModalVisible]="displayModal" (closedModal)="closePopup($event)"></app-modal>
+{{myForm.value | json}}

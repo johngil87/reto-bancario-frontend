@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClienteComponent } from './cliente.component';
+import { FormBuilder, Validators } from '@angular/forms';
 
 describe('ClienteComponent', () => {
   let component: ClienteComponent;
@@ -15,7 +16,11 @@ describe('ClienteComponent', () => {
     fixture.detectChanges();
   });
 
+  it('Validando formulario', () => {
+    expect(component.myForm.controls['nombre'].hasValidator(Validators.required)).toBeTrue();
+  });
+
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component.actualizarCliente()).toBeNull();
   });
 });
