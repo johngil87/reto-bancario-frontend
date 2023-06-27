@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente';
 import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
-import { switchMap } from 'rxjs';
+import { min, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-cliente',
@@ -18,13 +18,13 @@ export class ClienteComponent implements OnInit{
   mensajeModal:string = '';
   displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
-    nombre:['', [Validators.required]],
-    identificacion:['', [Validators.required]],
-    direccion:['', [Validators.required]],
+    nombre:['', [Validators.required, Validators.maxLength(60), Validators.pattern(this.validatorService.firstNameAndLastnamePattern)]],
+    identificacion:['', [Validators.required, Validators.max(9999999999),Validators.min(999999)]],
+    direccion:['', [Validators.required, Validators.maxLength(100)]],
     genero:['',[Validators.required]],
     edad:[0,[Validators.required,this.validatorService.notCero, this.validatorService.menorEdad, Validators.max(100)]],
-    telefono:['',[Validators.required]],
-    contrasena:['',[Validators.required, Validators.minLength(5)]],
+    telefono:['',[Validators.required, Validators.max(9999999999),Validators.min(999999)]],
+    contrasena:['',[Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
     estado:[false,[Validators.required]],
     idCliente:[0,[Validators.required]],
     });
@@ -94,7 +94,13 @@ export class ClienteComponent implements OnInit{
           return 'este campo es requerido';
 
         case 'minlength':
-          return 'este campo requiere un minimo de 10 caracteres';
+          return 'este campo requiere un minimo de 4 caracteres';
+
+        case 'maxlength':
+          return 'este campo requiere un max de 60 caracteres';
+        
+        case 'pattern':
+          return 'solo nombre y apellido y sin numeros'
 
         case 'cero':
           return 'tiene que ser mayor a cero';
@@ -102,8 +108,19 @@ export class ClienteComponent implements OnInit{
         case 'menor':
           return 'el cliente no puede ser menor de edad';
 
-          case 'max':
-            return 'edad no puede ser superior a 100';
+        case 'min':
+          return 'este campo debe tener mas de 6 numeros';
+
+        case 'max':
+          switch(field){
+            case 'edad':
+              return 'edad no puede ser superior a 100';
+            case 'identificacion':
+              return 'Identificacion no pude contener mas de 10 digitos'
+            case 'telefono':
+              return 'Telefono no pude contener mas de 10 digitos'
+          }
+                 
       }
     }
     return null;

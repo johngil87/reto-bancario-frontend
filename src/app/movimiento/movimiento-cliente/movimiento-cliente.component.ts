@@ -45,14 +45,27 @@ export class MovimientoClienteComponent {
       this.tituloModal ='Error'
       this.mensajeModal=error.error.message
       this.displayModal=true;
+      this.movimientos = [];
         console.log('error consumo ',error.error.message)
     });
   }
 
   imprimirTabla(mov: MovimientosCliente){
     const doc = new jsPDF();
-    doc.text(JSON.stringify(mov),10,10)
+    doc.text(this.setFormato(mov),10,10)
     doc.save('movimiento')
+  }
+
+  setFormato(mov: MovimientosCliente): string{
+    const form = `nombres: ${mov.nombre} \n  
+    cuenta: ${mov.numeroCuenta} \n
+    estado: ${mov.estado?'activo':'inactivo'} \n
+    fecha: ${mov.fecha} \n
+    saldo: ${mov.saldo} \n
+    saldo inicial: ${mov.saldoInicial} \n
+    valor Movimiento: ${mov.valor} \n
+    tipo: ${mov.tipo}` ;
+   return form;
   }
 
   public isValidField(field: string): boolean | null{

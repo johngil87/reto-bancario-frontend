@@ -12,6 +12,9 @@ const routes: Routes = [
     path:'movimientos',
     loadChildren: ()=> import('./movimiento/movimiento.module').then(m => m.MovimientoModule)
   },{
+    path:'login',
+    loadChildren: ()=> import('./auth/auth.module').then(m => m.AuthModule)
+  },{
     path:'',
     redirectTo:'clientes',
     pathMatch:'full'

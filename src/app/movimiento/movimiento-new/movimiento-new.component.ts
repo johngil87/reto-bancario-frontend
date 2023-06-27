@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Cuenta } from 'src/app/models/cuenta';
 import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
 
@@ -13,33 +15,59 @@ export class MovimientoNewComponent {
   tituloModal :string = '';
   mensajeModal:string = '';
   displayModal: boolean = false;
+  cuentas : Cuenta[] = [];
+  cuenta?: string;
+  
   public myForm: FormGroup = this.fb.group({    
+    identificacion:[0, [Validators.required, this.validatorService.notCero]],
+    idCuenta:['', [Validators.required]],
     valor:[0, [Validators.required, this.validatorService.notCero]],
-    idCuenta:[0,[Validators.required]],
+    contrasena:['',[Validators.required]],
     tipo:['',[Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService){}
+  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService, private router: Router){}
 
   registrarMovimiento(){
     if(!this.myForm.valid){
       this.myForm.markAllAsTouched()
-      console.log("NO VALIDO")
       return;
     }
     this.service.createMoved(this.myForm.value).subscribe(res=>{
-      console.log(res)
-      this.tituloModal ='Exito'
-      this.mensajeModal='operacion realizada con exito'
-      this.displayModal=true;
+      this.messageModal('Exito', 'operacion realizada con exito');
+      this.router.navigate(['movimientos'])
     },error=>{
-      this.tituloModal ='Error'
-      this.mensajeModal=error.error.message
-      this.displayModal=true;
+      this.messageModal('Error', error.error.message);
     })
     
   }
 
+  buscarCuentas(){
+    console.log('buscar')
+    const id = this.myForm.controls['identificacion'].value
+    this.service.getAllAcountByClient(id).pipe()
+    .subscribe(res =>{
+      if(res){
+        if(res.length === 0){
+          this.messageModal('Error', 'cliente no tiene cuentas registradas'); 
+        }
+        this.cuentas = res;
+        return
+      }            
+    },error=>{
+      this.messageModal('Error', error.error.message);
+    });
+  }
+
+  messageModal(title : string, message: string){
+      this.tituloModal =title;
+      this.mensajeModal=message
+      this.displayModal=true;
+  }
+
+  cancelarMovimiento(){
+    this.router.navigate(['movimientos'])
+  }
   
   public isValidField(field: string): boolean | null{
     return this.myForm.controls[field].errors  && this.myForm.controls[field].touched;   

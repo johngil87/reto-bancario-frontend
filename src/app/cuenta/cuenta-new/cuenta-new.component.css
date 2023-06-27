@@ -84,6 +84,20 @@ select{
         border: 2px solid #008CBA;
 }
 
+.btn:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.769);
+  /* Lowering the shadow */
+}
+
+.btn2:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.724);
+  /* Lowering the shadow */
+}
+
 @media (max-width: 400px) {
   .container{
     margin: 40px;

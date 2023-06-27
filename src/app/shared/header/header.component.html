@@ -5,6 +5,8 @@
     <a id="logo-header" href="#">
     </a> <!-- / #logo-header -->
 
-    <button class="btn" (click)="obtenerToken()">obtener token</button>
+    <button class="btn" *ngIf="!log" (click)="login()">Login</button>
+    <button class="btn" *ngIf="log" (click)="logout()">Logout</button>
+    
 
 </header>

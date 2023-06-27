@@ -4,19 +4,23 @@ import { MovimientoListComponent } from './movimiento-list/movimiento-list.compo
 import { MovimientoComponent } from './movimiento/movimiento.component';
 import { MovimientoNewComponent } from './movimiento-new/movimiento-new.component';
 import { MovimientoClienteComponent } from './movimiento-cliente/movimiento-cliente.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [{
   path:'',
   component: MovimientoListComponent
 },{
   path:'move/:id',
-  component: MovimientoComponent
+  component: MovimientoComponent,
+  canActivate:[AuthGuard],
 },{
   path:'newmove',
-  component: MovimientoNewComponent
+  component: MovimientoNewComponent,
+  canActivate:[AuthGuard],
 },{
   path:'listbyclient',
-  component: MovimientoClienteComponent
+  component: MovimientoClienteComponent,
+  canActivate:[AuthGuard],
 },];
 
 @NgModule({
