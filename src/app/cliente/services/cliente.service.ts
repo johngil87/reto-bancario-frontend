@@ -20,34 +20,21 @@ export class ClienteService {
   }
 
   createCliente(cliente : Cliente):Observable<Cliente | null >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.post<Cliente>(`${this.baseUrl}`,cliente,{headers: headers})
+    return this.http.post<Cliente>(`${this.baseUrl}`,cliente)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   updateClient(cliente : Cliente):Observable<Cliente | null >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.put<Cliente>(`${this.baseUrl}`,cliente,{headers: headers})
+    return this.http.put<Cliente>(`${this.baseUrl}`,cliente)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   deleteCliente(id:number):Observable<Cliente | null >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    console.log(id);
-    return this.http.delete<Cliente>(`${this.baseUrl}?id=${id}`,{headers: headers})
+    return this.http.delete<Cliente>(`${this.baseUrl}?id=${id}`)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -69,13 +56,5 @@ export class ClienteService {
 
   errorHandler(error: string){
     return throwError(error)
-  }
-  
-
-  tokenLocalStorage(): string{
-    if(localStorage.getItem('token')){
-      return localStorage.getItem('token')!
-    }
-    return '';
   }
 }

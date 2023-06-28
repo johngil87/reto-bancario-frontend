@@ -1,23 +1,27 @@
 <table class="table" id="movimientos-cliente">
   <thead>
-    <tr>        
+    <tr>       
+      <th scope="col">Fecha  </th> 
       <th scope="col">Nombres</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Movimiento</th>
-      <th scope="col">Fecha  </th>
-      <th scope="col">Numero cuenta</th>
-      <th scope="col">Saldo disponible</th>
+      <th scope="col">Numero Cuenta</th>
+      <th scope="col">Tipo Cuenta</th>
+      <th scope="col">Saldo Inicial</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Movimiento</th>      
+      <th scope="col">Saldo Disponible</th>
       <th scope="col">Imprimir</th>
     </tr>
   </thead>
   <tbody >
-    <tr *ngFor="let item of datos">        
+    <tr *ngFor="let item of datos"> 
+      <td>{{item.fecha  | date}}</td>       
       <td>{{item.nombre}}</td>
-      <td>{{item.tipo}}</td>
-      <td>{{item.valor}}</td>
-      <td>{{item.fecha  | date}}</td>
       <td>{{item.numeroCuenta}}</td>
-      <td>{{item.saldo}}</td> 
+      <td>{{item.tipoCuenta}}</td>
+      <td>{{item.saldoInicial}}</td>
+      <td>{{item.estado}}</td> 
+      <td>{{item.tipo == 'debito'? -item.valor: item.valor}}</td>
+      <td>{{item.saldo}}</td>
       <td><button type="submit" class="btn" (click)="imprimirTabla(item)">Imprimir</button></td>    
     </tr>
   
