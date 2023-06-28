@@ -14,11 +14,7 @@ export class CuentaService {
   constructor(private http: HttpClient) { }
 
   createAcount(cuenta: Cuenta):Observable<Cuenta | null>{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.post<Cuenta>(`${this.baseUrl}`,cuenta,{headers: headers})
+    return this.http.post<Cuenta>(`${this.baseUrl}`,cuenta)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -32,23 +28,14 @@ export class CuentaService {
   }
 
   updateAcount(acount: Cuenta):Observable<Cuenta | ErrorMessage >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.put<Cuenta>(`${this.baseUrl}`, acount, {headers: headers})
+    return this.http.put<Cuenta>(`${this.baseUrl}`, acount)
     .pipe(
       catchError(err => of(err))
     )
   }
 
   deleteAcount(id:number):Observable< null >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    console.log(id);
-    return this.http.delete<null>(`${this.baseUrl}/id?id=${id}`,{headers: headers})
+    return this.http.delete<null>(`${this.baseUrl}/id?id=${id}`)
     .pipe(
       catchError(err => of(err))
     )
@@ -70,13 +57,5 @@ export class CuentaService {
 
   errorHandler(error: string){
     return throwError(error)
-  }
-  
-
-  tokenLocalStorage(): string{
-    if(localStorage.getItem('token')){
-      return localStorage.getItem('token')!
-    }
-    return '';
   }
 }

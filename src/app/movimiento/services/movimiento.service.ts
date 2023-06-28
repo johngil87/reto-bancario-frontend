@@ -21,11 +21,7 @@ export class MovimientoService {
   }
 
   createMoved(moved: Movimiento):Observable<Movimiento | null>{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.post<Movimiento>(`${this.baseUrl}`,moved,{headers: headers})
+    return this.http.post<Movimiento>(`${this.baseUrl}`,moved)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -39,22 +35,14 @@ export class MovimientoService {
   }
 
   deleteMovedById(id: string):Observable< null >{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.delete<null>(`${this.baseUrl}?id=${id}`,{headers: headers})
+    return this.http.delete<null>(`${this.baseUrl}?id=${id}`)
     .pipe(
       catchError(err => of(null))
     )
   }
 
   updateMoved(mov: Movimiento):Observable<Movimiento | null>{
-    const token = this.tokenLocalStorage(); 
-    const headers = new HttpHeaders({
-      'my-token':token
-    })
-    return this.http.put<Movimiento>(`${this.baseUrl}`,mov,{headers: headers})
+    return this.http.put<Movimiento>(`${this.baseUrl}`,mov)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -69,13 +57,5 @@ export class MovimientoService {
 
   errorHandler(error: string){
     return throwError(error)
-  }
-  
-
-  tokenLocalStorage(): string{
-    if(localStorage.getItem('token')){
-      return localStorage.getItem('token')!
-    }
-    return '';
   }
 }
