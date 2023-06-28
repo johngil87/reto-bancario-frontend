@@ -41,26 +41,6 @@
     <button class="btn btn2" (click)="eliminarCuenta()">Eliminar</button>
 </div>
 <label class="textolabel">Movimientos</label>
-<table class="table">
-    <thead>
-      <tr>        
-        <th scope="col">Saldo</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Fecha  </th>
-        <th scope="col">Mas</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let item of movimientos ">        
-        <td>{{item.saldo}}</td>
-        <td>{{item.tipo}}</td>
-        <td>{{item.valor}}</td>
-        <td>{{item.fecha  | date}}</td>
-        <td><button  [routerLink]="['/movimientos/move', item.idMovimiento]" >►</button></td>       
-      </tr>
-    
-    </tbody>
-  </table>
+<app-movimiento-table [datos]="movimientos"></app-movimiento-table>
 
   <app-modal [titulo]="tituloModal" [mensaje]="mensajeModal" [isModalVisible]="displayModal" (closedModal)="closePopup($event)"></app-modal>

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { MovimientoService } from '../services/movimiento.service';
 
 @Component({
   selector: 'app-movimiento',
@@ -27,7 +27,7 @@ export class MovimientoComponent {
     });
 
   constructor(private fb: FormBuilder,
-     private service: BancarioService,
+     private service: MovimientoService,
     private activateRoute: ActivatedRoute, 
     private router: Router){}
 

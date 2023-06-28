@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Movimiento } from 'src/app/models/movimiento';
-import { BancarioService } from 'src/app/services/bancario.service';
+import { MovimientoService } from '../services/movimiento.service';
 
 @Component({
   selector: 'app-movimiento-list',
@@ -13,7 +13,7 @@ export class MovimientoListComponent implements OnInit{
   filteredData: Movimiento[] = [];
 
   
-  constructor(private service: BancarioService){}
+  constructor(private service: MovimientoService){}
 
   ngOnInit(): void {
     this.service.getAllMoved().subscribe(res =>{

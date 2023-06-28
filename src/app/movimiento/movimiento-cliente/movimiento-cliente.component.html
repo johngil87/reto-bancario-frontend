@@ -24,30 +24,5 @@
   </div>
 </form>
 
-<table class="table" id="movimientos-cliente">
-    <thead>
-      <tr>        
-        <th scope="col">Nombres</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Movimiento</th>
-        <th scope="col">Fecha  </th>
-        <th scope="col">Numero cuenta</th>
-        <th scope="col">Saldo disponible</th>
-        <th scope="col">Imprimir</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let item of movimientos ">        
-        <td>{{item.nombre}}</td>
-        <td>{{item.tipo}}</td>
-        <td>{{item.valor}}</td>
-        <td>{{item.fecha  | date}}</td>
-        <td>{{item.numeroCuenta}}</td>
-        <td>{{item.saldo}}</td> 
-        <td><button type="submit" class="btn" (click)="imprimirTabla(item)">Imprimir</button></td>    
-      </tr>
-    
-    </tbody>
-    
-  </table>
-  <app-modal [titulo]="tituloModal" [mensaje]="mensajeModal" [isModalVisible]="displayModal" (closedModal)="closePopup($event)"></app-modal>
+<app-cliente-movimientos-table [datos]="movimientos"></app-cliente-movimientos-table>
+<app-modal [titulo]="tituloModal" [mensaje]="mensajeModal" [isModalVisible]="displayModal" (closedModal)="closePopup($event)"></app-modal>

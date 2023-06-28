@@ -6,13 +6,15 @@ import { CuentaNewComponent } from './cuenta-new/cuenta-new.component';
 import { CuentaListComponent } from './cuenta-list/cuenta-list.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
 import { SharedModule } from '../shared/shared.module';
+import { CuentaTableComponent } from './components/cuenta-table/cuenta-table.component';
 
 
 @NgModule({
   declarations: [
     CuentaNewComponent,
     CuentaListComponent,
-    CuentaComponent
+    CuentaComponent,
+    CuentaTableComponent
   ],
   imports: [
     CommonModule,

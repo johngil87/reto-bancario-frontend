@@ -7,13 +7,15 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClienteNewComponent } from './cliente-new/cliente-new.component';
+import { ClienteTableComponent } from './components/cliente-table/cliente-table.component';
 
 
 @NgModule({
   declarations: [
     ClienteListComponent,
     ClienteComponent,
-    ClienteNewComponent
+    ClienteNewComponent,
+    ClienteTableComponent
   ],
   imports: [
     CommonModule,

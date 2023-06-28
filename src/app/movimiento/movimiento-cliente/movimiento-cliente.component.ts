@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MovimientosCliente } from 'src/app/models/movimientos-cliente';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
-import  jsPDF from 'jspdf';
-import { ErrorMessage } from '../../models/error';
+import { MovimientoService } from '../services/movimiento.service';
 
 @Component({
   selector: 'app-movimiento-cliente',
@@ -23,7 +21,9 @@ export class MovimientoClienteComponent {
     fechaFinal:['', [Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService){}
+  constructor(private fb: FormBuilder,
+     private service: MovimientoService,
+      private validatorService: ValidatorService){}
 
   ngOnInit(): void {
     console.log('inicia lista de movimientos')
@@ -48,24 +48,6 @@ export class MovimientoClienteComponent {
       this.movimientos = [];
         console.log('error consumo ',error.error.message)
     });
-  }
-
-  imprimirTabla(mov: MovimientosCliente){
-    const doc = new jsPDF();
-    doc.text(this.setFormato(mov),10,10)
-    doc.save('movimiento')
-  }
-
-  setFormato(mov: MovimientosCliente): string{
-    const form = `nombres: ${mov.nombre} \n  
-    cuenta: ${mov.numeroCuenta} \n
-    estado: ${mov.estado?'activo':'inactivo'} \n
-    fecha: ${mov.fecha} \n
-    saldo: ${mov.saldo} \n
-    saldo inicial: ${mov.saldoInicial} \n
-    valor Movimiento: ${mov.valor} \n
-    tipo: ${mov.tipo}` ;
-   return form;
   }
 
   public isValidField(field: string): boolean | null{

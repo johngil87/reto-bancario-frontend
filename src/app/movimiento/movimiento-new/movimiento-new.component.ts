@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cuenta } from 'src/app/models/cuenta';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { MovimientoService } from '../services/movimiento.service';
+import { CuentaService } from 'src/app/cuenta/services/cuenta.service';
 
 @Component({
   selector: 'app-movimiento-new',
@@ -26,7 +27,11 @@ export class MovimientoNewComponent {
     tipo:['',[Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService, private router: Router){}
+  constructor(private fb: FormBuilder,
+      private service: MovimientoService,
+      private cuentaService: CuentaService,
+      private validatorService: ValidatorService,
+      private router: Router){}
 
   registrarMovimiento(){
     if(!this.myForm.valid){
@@ -45,7 +50,7 @@ export class MovimientoNewComponent {
   buscarCuentas(){
     console.log('buscar')
     const id = this.myForm.controls['identificacion'].value
-    this.service.getAllAcountByClient(id).pipe()
+    this.cuentaService.getAllAcountByClient(id).pipe()
     .subscribe(res =>{
       if(res){
         if(res.length === 0){
