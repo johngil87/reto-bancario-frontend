@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/models/cliente';
-import { BancarioService } from 'src/app/services/bancario.service';
-import { ErrorMessage } from '../../models/error';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-cliente-list',
@@ -13,7 +12,7 @@ export class ClienteListComponent implements OnInit{
   clientes: Cliente[] = [];
   filteredData: Cliente[] = [];
 
-  constructor(private service: BancarioService){}
+  constructor(private service: ClienteService){}
 
   ngOnInit(): void {
     console.log('inicia lista clientes')
@@ -24,11 +23,7 @@ export class ClienteListComponent implements OnInit{
       }
     })
   }
-
-  eliminarCliente(item: Cliente){
-
-  }
-
+  
   filterData(value: string) {
     this.filteredData = this.clientes.filter((item: Cliente) => {
       return item.nombre.toLowerCase().includes(value.toLowerCase());

@@ -7,6 +7,7 @@ import { MovimientoComponent } from './movimiento/movimiento.component';
 import { MovimientoNewComponent } from './movimiento-new/movimiento-new.component';
 import { SharedModule } from '../shared/shared.module';
 import { MovimientoClienteComponent } from './movimiento-cliente/movimiento-cliente.component';
+import { ClietneMovimientosTableComponent } from './components/cliente-movimientos-table/cliente-movimientos-table.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MovimientoClienteComponent } from './movimiento-cliente/movimiento-clie
     MovimientoListComponent,
     MovimientoComponent,
     MovimientoNewComponent,
-    MovimientoClienteComponent
+    MovimientoClienteComponent,
+    ClietneMovimientosTableComponent,
   ],
   imports: [
     CommonModule,

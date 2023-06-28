@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import { BancarioService } from 'src/app/services/bancario.service';
 
 @Component({
   selector: 'app-header',

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
 import { Cliente } from '../../models/cliente';
 import { Cuenta } from 'src/app/models/cuenta';
 import { switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import { CuentaService } from '../services/cuenta.service';
+import { ClienteService } from 'src/app/cliente/services/cliente.service';
 
 @Component({
   selector: 'app-cuenta-new',
@@ -20,15 +21,16 @@ export class CuentaNewComponent {
   mensajeModal:string = '';
   displayModal: boolean = false;
   public myForm: FormGroup = this.fb.group({
-    numeroCuenta:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(60000)]],
-    identificacion:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(999999)]],
+    numeroCuenta:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(99999)]],
+    identificacion:[0, [Validators.required, this.validatorService.notCero,Validators.max(9999999999),Validators.min(99999)]],
     saldoInicial:[0,[Validators.required]],
     tipoCuenta:['',[Validators.required]],
     estadoCuenta:[false,[Validators.required]]
     });
 
   constructor(private fb: FormBuilder, 
-    private service: BancarioService, 
+    private service: CuentaService,
+    private clienteService: ClienteService, 
     private validatorService: ValidatorService,
     private router: Router){}
 
@@ -38,7 +40,7 @@ export class CuentaNewComponent {
       console.log("NO VALIDO")
       return;
     }
-    this.service.getClientByIdentification(this.myForm.controls['identificacion'].value)
+    this.clienteService.getClientByIdentification(this.myForm.controls['identificacion'].value)
     .pipe(
       switchMap((res)=>{
         if(res){

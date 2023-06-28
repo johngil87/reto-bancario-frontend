@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Cuenta } from 'src/app/models/cuenta';
 import { Movimiento } from 'src/app/models/movimiento';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { CuentaService } from '../services/cuenta.service';
 
 @Component({
   selector: 'app-cuenta',
@@ -28,7 +28,7 @@ export class CuentaComponent {
     });
 
   constructor(private fb: FormBuilder,
-     private service: BancarioService, 
+     private service: CuentaService, 
     private validatorService: ValidatorService, 
     private activateRoute: ActivatedRoute, 
     private router: Router){}

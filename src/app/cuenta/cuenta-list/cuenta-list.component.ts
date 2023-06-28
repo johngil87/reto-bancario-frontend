@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Cuenta } from 'src/app/models/cuenta';
-import { BancarioService } from 'src/app/services/bancario.service';
+import { CuentaService } from '../services/cuenta.service';
 
 @Component({
   selector: 'app-cuenta-list',
@@ -11,7 +11,7 @@ export class CuentaListComponent {
   cuentas: Cuenta[] = [];
   filteredData: Cuenta[] = [];
 
-  constructor(private service: BancarioService){}
+  constructor(private service: CuentaService){}
 
   ngOnInit(): void {
     console.log('inicia lista clientes')
@@ -23,14 +23,10 @@ export class CuentaListComponent {
     })
   }
 
-  eliminarCliente(item: Cuenta){
-
-  }
-
   filterData(value: string) {
     if(value){
       this.filteredData = this.cuentas.filter((item: Cuenta) => {
-        return item.numeroCuenta === Number(value);
+        return item.numeroCuenta?.toString().includes(value);
       });
       return;
     }

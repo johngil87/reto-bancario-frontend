@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BancarioService } from '../../services/bancario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/validators/validator.service';
 import { Router } from '@angular/router';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-cliente-new',
@@ -25,7 +25,10 @@ export class ClienteNewComponent {
     estado:[false,[Validators.required]]
     });
 
-  constructor(private fb: FormBuilder, private service: BancarioService, private validatorService: ValidatorService,private router: Router){}
+  constructor(private fb: FormBuilder,
+     private service: ClienteService,
+      private validatorService: ValidatorService,
+      private router: Router){}
 
   registrarCliente(){
     if(!this.myForm.valid){

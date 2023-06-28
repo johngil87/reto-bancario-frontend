@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente';
-import { BancarioService } from 'src/app/services/bancario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
 import { min, switchMap } from 'rxjs';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-cliente',
@@ -30,7 +30,7 @@ export class ClienteComponent implements OnInit{
     });
 
   constructor(private fb: FormBuilder,
-     private service: BancarioService, 
+     private service: ClienteService, 
     private validatorService: ValidatorService, 
     private activateRoute: ActivatedRoute, 
     private router: Router){}

@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>        
+      <th scope="col">Numero Cuenta</th>
+      <th scope="col">Tipo Cuenta</th>
+      <th scope="col">Saldo Inicial</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Ver mas</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let item of datos ">        
+      <td>{{item.numeroCuenta}}</td>
+      <td>{{item.tipoCuenta}}</td>
+      <td>{{item.saldoInicial}}</td>
+      <td>{{item.estado  | estado}}</td>
+      <td><button  [routerLink]="['/cuentas/cuenta', item.numeroCuenta]" >►</button></td>       
+    </tr>
+  
+  </tbody>
+</table>
